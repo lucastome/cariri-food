@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -31,5 +33,9 @@ public class Restaurant implements Serializable{
 
 	@Column(name = "shipping_fee")
 	private BigDecimal shippingFee;
+
+	@ManyToOne
+	@JoinColumn(name = "id_kitchen")
+	private Kitchen kitchen;
 
 }
