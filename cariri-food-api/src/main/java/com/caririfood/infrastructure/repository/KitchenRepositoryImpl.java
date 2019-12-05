@@ -6,9 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Component;
+
 import com.caririfood.domain.model.Kitchen;
 import com.caririfood.domain.repository.KitchenRepository;
 
+@Component
 public class KitchenRepositoryImpl implements KitchenRepository {
 
 	@PersistenceContext

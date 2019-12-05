@@ -5,9 +5,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Component;
+
 import com.caririfood.domain.model.Permission;
 import com.caririfood.domain.repository.PermissionRepository;
 
+@Component
 public class PermissionRepositoryImpl implements PermissionRepository{
 
 	@PersistenceContext

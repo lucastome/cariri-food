@@ -7,19 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caririfood.domain.model.Kitchen;
-import com.caririfood.infrastructure.sevice.KitchenService;
+import com.caririfood.domain.model.State;
+import com.caririfood.infrastructure.sevice.StateService;
 
 @RestController
-@RequestMapping("/kitchens")
-public class KitchenController {
+@RequestMapping("/states")
+public class StateController {
 
 	@Autowired
-	private KitchenService kitchenService;
+	private StateService stateService;
 	
 	@GetMapping
-	public List<Kitchen> list() {
-		return this.kitchenService.list();
+	public List<State> list() {
+		return this.stateService.list();
 	}
-	
 }

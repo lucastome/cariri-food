@@ -5,9 +5,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Component;
+
 import com.caririfood.domain.model.FormPayment;
 import com.caririfood.domain.repository.FormPaymentRepository;
 
+@Component
 public class FormPaymentRepositoryImpl implements FormPaymentRepository{
 
 	@PersistenceContext

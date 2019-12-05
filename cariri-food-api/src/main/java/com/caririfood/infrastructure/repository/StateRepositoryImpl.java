@@ -5,9 +5,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Component;
+
 import com.caririfood.domain.model.State;
 import com.caririfood.domain.repository.StateRepository;
 
+@Component
 public class StateRepositoryImpl implements StateRepository {
 
 	@PersistenceContext
