@@ -18,4 +18,8 @@ public class KitchenService {
 		return this.kitchenRepository.list();
 	}
 	
+	public Kitchen findById(Long id) {
+		return this.kitchenRepository.findById(id);
+	}
+	
 }

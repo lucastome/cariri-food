@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,11 @@ public class KitchenController {
 	@GetMapping
 	public List<Kitchen> list() {
 		return this.kitchenService.list();
+	}
+	
+	@GetMapping(value = "/{id}")
+	public Kitchen findById(@PathVariable Long id) {
+		return this.kitchenService.findById(id);
 	}
 	
 }
