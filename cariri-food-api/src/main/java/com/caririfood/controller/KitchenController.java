@@ -16,22 +16,28 @@ import javax.validation.Valid;
 @RequestMapping("/kitchens")
 public class KitchenController {
 
-	@Autowired
-	private KitchenService kitchenService;
-	
-	@GetMapping
-	public List<Kitchen> list() {
-		return this.kitchenService.list();
-	}
-	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Kitchen> findById(@PathVariable Long id) {
-		Kitchen kitchen = this.kitchenService.findById(id);
-		return kitchen != null ? ResponseEntity.ok(kitchen) : ResponseEntity.notFound().build();
-	}
+    @Autowired
+    private KitchenService kitchenService;
 
-	@PostMapping
-	public ResponseEntity<Kitchen> create(@Valid @RequestBody Kitchen kitchen){
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.kitchenService.save(kitchen));
-	}
+    @GetMapping
+    public List<Kitchen> list() {
+        return this.kitchenService.list();
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Kitchen> findById(@PathVariable Long id) {
+        Kitchen kitchen = this.kitchenService.findById(id);
+        return kitchen != null ? ResponseEntity.ok(kitchen) : ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Kitchen> create(@Valid @RequestBody Kitchen kitchen) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.kitchenService.save(kitchen));
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Kitchen> update(@PathVariable Long id, @Valid @RequestBody Kitchen kitchen) {
+        Kitchen kitchenOld = this.kitchenService.findById(id);
+        return kitchenOld == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(this.kitchenService.update(id, kitchen, kitchenOld));
+    }
 }

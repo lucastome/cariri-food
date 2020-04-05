@@ -2,6 +2,7 @@ package com.caririfood.infrastructure.sevice;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,11 @@ public class KitchenService {
 
 	public Kitchen save(Kitchen kitchen) {
 		return this.kitchenRepository.save(kitchen);
+	}
+
+	public Kitchen update(Long id, Kitchen newKitchen, Kitchen oldKitchen) {
+		BeanUtils.copyProperties(newKitchen, oldKitchen, "id");
+		return this.kitchenRepository.save(oldKitchen);
 	}
 	
 }
