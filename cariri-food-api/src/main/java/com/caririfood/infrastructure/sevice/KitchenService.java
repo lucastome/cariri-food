@@ -21,5 +21,9 @@ public class KitchenService {
 	public Kitchen findById(Long id) {
 		return this.kitchenRepository.findById(id);
 	}
+
+	public Kitchen save(Kitchen kitchen) {
+		return this.kitchenRepository.save(kitchen);
+	}
 	
 }
