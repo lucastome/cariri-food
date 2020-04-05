@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.caririfood.domain.model.Kitchen;
@@ -30,6 +31,10 @@ public class KitchenService {
 	public Kitchen update(Long id, Kitchen newKitchen, Kitchen oldKitchen) {
 		BeanUtils.copyProperties(newKitchen, oldKitchen, "id");
 		return this.kitchenRepository.save(oldKitchen);
+	}
+
+	public void delete(Long id) throws DataIntegrityViolationException{
+		this.kitchenRepository.delete(id);
 	}
 	
 }

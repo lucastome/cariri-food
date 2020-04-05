@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import com.caririfood.domain.model.Kitchen;
@@ -35,8 +36,8 @@ public class KitchenRepositoryImpl implements KitchenRepository {
 
 	@Transactional
 	@Override
-	public void remove(Kitchen kitchen) {
-		this.manager.remove(this.findById(kitchen.getId()));
+	public void delete(Long id) throws DataIntegrityViolationException {
+		this.manager.remove(this.findById(id));
 	}
 
 }

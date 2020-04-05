@@ -3,6 +3,7 @@ package com.caririfood.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +40,24 @@ public class KitchenController {
     public ResponseEntity<Kitchen> update(@PathVariable Long id, @Valid @RequestBody Kitchen kitchen) {
         Kitchen kitchenOld = this.kitchenService.findById(id);
         return kitchenOld == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(this.kitchenService.update(id, kitchen, kitchenOld));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public ResponseEntity<Kitchen> delete(@PathVariable Long id) {
+        try{
+            Kitchen kitchen = this.kitchenService.findById(id);
+
+            if(kitchen == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            this.kitchenService.delete(id);
+
+            return ResponseEntity.noContent().build() ;
+
+        }catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 }
