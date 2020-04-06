@@ -38,26 +38,13 @@ public class KitchenController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Kitchen> update(@PathVariable Long id, @Valid @RequestBody Kitchen kitchen) {
-        Kitchen kitchenOld = this.kitchenService.findById(id);
-        return kitchenOld == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(this.kitchenService.update(id, kitchen, kitchenOld));
+        return ResponseEntity.ok().body(this.kitchenService.update(id, kitchen));
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public ResponseEntity<Kitchen> delete(@PathVariable Long id) {
-        try{
-            Kitchen kitchen = this.kitchenService.findById(id);
-
-            if(kitchen == null) {
-                return ResponseEntity.notFound().build();
-            }
-
-            this.kitchenService.delete(id);
-
-            return ResponseEntity.noContent().build() ;
-
-        }catch (DataIntegrityViolationException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
+        this.kitchenService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

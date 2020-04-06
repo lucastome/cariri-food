@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.caririfood.domain.model.Kitchen;
@@ -25,7 +26,11 @@ public class KitchenRepositoryImpl implements KitchenRepository {
 
 	@Override
 	public Kitchen findById(Long id) {
-		return this.manager.find(Kitchen.class, id);
+		Kitchen kitchen = this.manager.find(Kitchen.class, id);
+		if(kitchen == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		return kitchen;
 	}
 	
 	@Transactional
