@@ -4,6 +4,7 @@ import com.caririfood.domain.exception.EntityNotFoundException;
 import com.caririfood.domain.model.Kitchen;
 import com.caririfood.domain.model.Restaurant;
 import com.caririfood.domain.repository.RestaurantRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,11 @@ public class RestaurantService {
         Kitchen kitchen = this.kitchenService.findById(restaurant.getKitchen().getId());
         restaurant.setKitchen(kitchen);
         return this.restaurantRepository.save(restaurant);
+    }
+
+    public Restaurant update(Long id, Restaurant newRestaurant) {
+        Restaurant oldRestaurant = this.findById(id);
+        BeanUtils.copyProperties(newRestaurant, oldRestaurant, "id");
+        return this.save(oldRestaurant);
     }
 }

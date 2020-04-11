@@ -37,4 +37,9 @@ public class RestaurantController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Restaurant> update(@PathVariable Long id, @Valid @RequestBody Restaurant restaurant) {
+        return ResponseEntity.ok().body(this.restaurantService.update(id, restaurant));
+    }
 }
