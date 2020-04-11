@@ -1,19 +1,16 @@
 package com.caririfood.infrastructure.sevice;
 
-import java.util.List;
-
 import com.caririfood.domain.exception.EntityInUseException;
 import com.caririfood.domain.exception.EntityNotFoundException;
+import com.caririfood.domain.model.Kitchen;
+import com.caririfood.domain.repository.KitchenRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.caririfood.domain.model.Kitchen;
-import com.caririfood.domain.repository.KitchenRepository;
+import java.util.List;
 
 @Service
 public class KitchenService {
@@ -26,7 +23,14 @@ public class KitchenService {
 	}
 	
 	public Kitchen findById(Long id) {
-		return this.kitchenRepository.findById(id);
+
+		Kitchen kitchen = this.kitchenRepository.findById(id);
+
+		if(kitchen == null) {
+			throw new EntityNotFoundException(String.format("Não existe cozinha cadastrada com o código %d", id));
+		}
+
+		return kitchen;
 	}
 
 	public Kitchen save(Kitchen kitchen) {
