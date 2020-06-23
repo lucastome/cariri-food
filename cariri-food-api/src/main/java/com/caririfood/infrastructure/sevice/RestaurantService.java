@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RestaurantService {
@@ -23,11 +24,11 @@ public class RestaurantService {
         return this.restaurantRepository.list();
     }
 
-    public Restaurant  findById(Long id) {
+    public Restaurant findById(Long id) {
 
         Restaurant restaurant = this.restaurantRepository.findById(id);
 
-        if(restaurant == null){
+        if (Objects.isNull(restaurant)) {
             throw new EntityNotFoundException(String.format("Não existe Restaurante cadastrado com o código %d", id));
         }
 

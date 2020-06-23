@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.caririfood.domain.model.State;
 import com.caririfood.domain.repository.StateRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class StateRepositoryImpl implements StateRepository {
@@ -26,14 +27,16 @@ public class StateRepositoryImpl implements StateRepository {
 		return this.manager.find(State.class, id);
 	}
 
+	@Transactional
 	@Override
 	public State save(State state) {
 		return this.manager.merge(state);
 	}
 
+	@Transactional
 	@Override
-	public void remove(State state) {
-		this.manager.remove(this.findById(state.getId()));
+	public void delete(Long id) {
+		this.manager.remove(this.findById(id));
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.caririfood.domain.model.FormPayment;
 import com.caririfood.domain.repository.FormPaymentRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class FormPaymentRepositoryImpl implements FormPaymentRepository{
@@ -26,11 +27,13 @@ public class FormPaymentRepositoryImpl implements FormPaymentRepository{
 		return this.manager.find(FormPayment.class, id);
 	}
 
+	@Transactional
 	@Override
 	public FormPayment save(FormPayment formPayment) {
 		return this.manager.merge(formPayment);
 	}
 
+	@Transactional
 	@Override
 	public void remove(FormPayment formPayment) {
 		this.manager.remove(this.findById(formPayment.getId()));

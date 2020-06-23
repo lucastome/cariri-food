@@ -2,8 +2,8 @@ package com.caririfood.controller;
 
 import com.caririfood.domain.exception.EntityInUseException;
 import com.caririfood.domain.exception.EntityNotFoundException;
-import com.caririfood.domain.model.State;
-import com.caririfood.infrastructure.sevice.StateService;
+import com.caririfood.domain.model.City;
+import com.caririfood.infrastructure.sevice.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,42 +13,41 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/states")
-public class StateController {
+@RequestMapping("/cities")
+public class CityController {
 
     @Autowired
-    private StateService stateService;
+    private CityService cityService;
 
     @GetMapping
-    public List<State> list() {
-        return this.stateService.list();
+    public List<City> list() {
+        return this.cityService.list();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<State> findById(@PathVariable Long id) {
-        State state = this.stateService.findById(id);
-        return state != null ? ResponseEntity.ok(state) : ResponseEntity.notFound().build();
+    public ResponseEntity<City> findById(@PathVariable Long id) {
+        City city = this.cityService.findById(id);
+        return city != null ? ResponseEntity.ok(city) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody State state) {
+    public ResponseEntity<?> create(@Valid @RequestBody City city) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(this.stateService.save(state));
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.cityService.save(city));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<State> update(@PathVariable Long id, @Valid @RequestBody State state) {
-        return ResponseEntity.ok().body(this.stateService.update(id, state));
+    public ResponseEntity<City> update(@PathVariable Long id, @Valid @RequestBody City city) {
+        return ResponseEntity.ok().body(this.cityService.update(id, city));
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> remover(@PathVariable Long id) {
         try {
-            stateService.delete(id);
+            cityService.delete(id);
             return ResponseEntity.noContent().build();
 
         } catch (EntityNotFoundException e) {
@@ -58,4 +57,5 @@ public class StateController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
+
 }

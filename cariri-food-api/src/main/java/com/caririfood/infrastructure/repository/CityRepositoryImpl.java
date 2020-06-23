@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.caririfood.domain.model.City;
 import com.caririfood.domain.repository.CityRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CityRepositoryImpl implements CityRepository {
@@ -26,14 +27,16 @@ public class CityRepositoryImpl implements CityRepository {
 		return this.manager.find(City.class, id);
 	}
 
+	@Transactional
 	@Override
 	public City save(City city) {
 		return this.manager.merge(city);
 	}
 
+	@Transactional
 	@Override
-	public void remove(City city) {
-		this.manager.remove(this.findById(city.getId()));
+	public void delete(Long id) {
+		this.manager.remove(this.findById(id));
 	}
 
 }
