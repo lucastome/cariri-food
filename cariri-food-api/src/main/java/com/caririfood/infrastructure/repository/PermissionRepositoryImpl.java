@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.caririfood.domain.model.Permission;
 import com.caririfood.domain.repository.PermissionRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class PermissionRepositoryImpl implements PermissionRepository{
@@ -26,11 +27,13 @@ public class PermissionRepositoryImpl implements PermissionRepository{
 		return this.manager.find(Permission.class, id);
 	}
 
+	@Transactional
 	@Override
 	public Permission save(Permission state) {
 		return this.manager.merge(state);
 	}
 
+	@Transactional
 	@Override
 	public void remove(Permission state) {
 		this.manager.remove(this.findById(state.getId()));

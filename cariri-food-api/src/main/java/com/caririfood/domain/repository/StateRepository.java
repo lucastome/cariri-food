@@ -10,8 +10,8 @@ public interface StateRepository {
 
 	public State findById(Long id);
 
-	public State save(State restaurant);
+	public State save(State state);
 
-	public void remove(State restaurant);
+	public void delete(Long id);
 
 }

@@ -12,5 +12,5 @@ public interface CityRepository {
 
 	public City save(City city);
 
-	public void remove(City city);
+	public void delete(Long id);
 }
