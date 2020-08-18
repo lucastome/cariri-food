@@ -1,18 +1,10 @@
 package com.caririfood.domain.repository;
 
-import java.util.List;
-
 import com.caririfood.domain.model.Kitchen;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface KitchenRepository {
-	
-	public List<Kitchen> list();
-
-	public Kitchen findById(Long id);
-
-	public Kitchen save(Kitchen kitchen);
-
-	public void delete(Long id) throws DataIntegrityViolationException;
+@Repository
+public interface KitchenRepository extends JpaRepository<Kitchen, Long> {
 
 }

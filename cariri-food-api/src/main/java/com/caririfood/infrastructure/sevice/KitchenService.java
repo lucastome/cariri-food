@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class KitchenService {
@@ -20,18 +19,11 @@ public class KitchenService {
     private KitchenRepository kitchenRepository;
 
     public List<Kitchen> list() {
-        return this.kitchenRepository.list();
+        return this.kitchenRepository.findAll();
     }
 
     public Kitchen findById(Long id) {
-
-        Kitchen kitchen = this.kitchenRepository.findById(id);
-
-        if (Objects.isNull(kitchen)) {
-            throw new EntityNotFoundException(String.format("Não existe cozinha cadastrada com o código %d", id));
-        }
-
-        return kitchen;
+        return this.kitchenRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Não existe cozinha cadastrada com o código %d", id)));
     }
 
     public Kitchen save(Kitchen kitchen) {
@@ -46,7 +38,7 @@ public class KitchenService {
 
     public void delete(Long id) {
         try {
-            this.kitchenRepository.delete(id);
+            this.kitchenRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException(String.format("Cozinha de códido %d não localizada", id));
         } catch (DataIntegrityViolationException e) {

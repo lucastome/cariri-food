@@ -1,19 +1,16 @@
 package com.caririfood.infrastructure.repository;
 
-import java.util.List;
+import com.caririfood.domain.model.Restaurant;
+import com.caririfood.domain.repository.RestaurantRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
-import com.caririfood.domain.model.Kitchen;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
 
-import com.caririfood.domain.model.Restaurant;
-import com.caririfood.domain.repository.RestaurantRepository;
-
-@Component
+@Repository
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
 	@PersistenceContext

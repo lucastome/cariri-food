@@ -9,9 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.caririfood.domain.model.State;
 import com.caririfood.domain.repository.StateRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Repository
 public class StateRepositoryImpl implements StateRepository {
 
 	@PersistenceContext

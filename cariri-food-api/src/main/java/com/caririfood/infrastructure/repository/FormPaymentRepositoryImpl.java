@@ -1,17 +1,16 @@
 package com.caririfood.infrastructure.repository;
 
-import java.util.List;
+import com.caririfood.domain.model.FormPayment;
+import com.caririfood.domain.repository.FormPaymentRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
-import org.springframework.stereotype.Component;
 
-import com.caririfood.domain.model.FormPayment;
-import com.caririfood.domain.repository.FormPaymentRepository;
-import org.springframework.transaction.annotation.Transactional;
-
-@Component
+@Repository
 public class FormPaymentRepositoryImpl implements FormPaymentRepository{
 
 	@PersistenceContext
