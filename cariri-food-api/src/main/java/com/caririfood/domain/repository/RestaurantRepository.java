@@ -1,17 +1,8 @@
 package com.caririfood.domain.repository;
 
-import java.util.List;
-
 import com.caririfood.domain.model.Restaurant;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RestaurantRepository {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-	public List<Restaurant> list();
-
-	public Restaurant findById(Long id);
-
-	public Restaurant save(Restaurant restaurant);
-
-	public void remove(Restaurant restaurant);
-	
 }

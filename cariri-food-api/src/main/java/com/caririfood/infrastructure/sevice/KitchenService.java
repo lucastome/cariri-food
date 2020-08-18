@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class KitchenService {
     @Autowired
     private KitchenRepository kitchenRepository;
 
-    public List<Kitchen> list() {
-        return this.kitchenRepository.findAll();
+    public List<Kitchen> findAll() {
+        return this.kitchenRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     public Kitchen findById(Long id) {
@@ -36,7 +37,7 @@ public class KitchenService {
         return this.kitchenRepository.save(oldKitchen);
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         try {
             this.kitchenRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {

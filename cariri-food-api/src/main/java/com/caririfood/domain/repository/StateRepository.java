@@ -1,17 +1,9 @@
 package com.caririfood.domain.repository;
 
-import java.util.List;
-
 import com.caririfood.domain.model.State;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface StateRepository {
-
-	public List<State> list();
-
-	public State findById(Long id);
-
-	public State save(State state);
-
-	public void delete(Long id);
-
+@Repository
+public interface StateRepository extends JpaRepository<State, Long> {
 }

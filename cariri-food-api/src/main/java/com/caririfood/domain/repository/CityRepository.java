@@ -1,16 +1,10 @@
 package com.caririfood.domain.repository;
 
-import java.util.List;
-
 import com.caririfood.domain.model.City;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CityRepository {
+@Repository
+public interface CityRepository extends JpaRepository<City, Long> {
 
-	public List<City> list();
-
-	public City findById(Long id);
-
-	public City save(City city);
-
-	public void delete(Long id);
 }

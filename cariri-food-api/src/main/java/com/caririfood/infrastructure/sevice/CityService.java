@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class CityService {
@@ -22,20 +21,16 @@ public class CityService {
     @Autowired
     private StateService stateService;
 
-    public List<City> list() {
-        return this.cityRepository.list();
+    public List<City> findAll() {
+        return this.cityRepository.findAll();
     }
 
     public City findById(Long id) {
-        City city = this.cityRepository.findById(id);
-        if (Objects.isNull(city)) {
-            throw new EntityNotFoundException(String.format("Não existe cidade cadastrada com o código %d", id));
-        }
-        return city;
+        return this.cityRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Não existe cidade cadastrada com o código %d", id)));
     }
 
     public City save(City city) {
-        city.setState(stateService.findById(city.getState().getId()));
+        this.setReferences(city);
         return this.cityRepository.save(city);
     }
 
@@ -45,14 +40,18 @@ public class CityService {
         return this.save(oldCity);
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         try {
-            this.cityRepository.delete(id);
+            this.cityRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException(String.format("Cidade de códido %d não localizada", id));
         } catch (DataIntegrityViolationException e) {
             throw new EntityInUseException(String.format("Cidade de código %d não pode ser removida pois está em uso", id));
         }
+    }
+
+    private void setReferences(City city) {
+        city.setState(stateService.findById(city.getState().getId()));
     }
 
 }

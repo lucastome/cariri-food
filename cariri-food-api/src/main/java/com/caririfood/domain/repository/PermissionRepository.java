@@ -1,17 +1,8 @@
 package com.caririfood.domain.repository;
 
-import java.util.List;
-
 import com.caririfood.domain.model.Permission;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PermissionRepository {
-
-	public List<Permission> list();
-
-	public Permission findById(Long id);
-
-	public Permission save(Permission permission);
-
-	public void remove(Permission permission);
+public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
 }

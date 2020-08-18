@@ -19,19 +19,12 @@ public class StateService {
     @Autowired
     private StateRepository stateRepository;
 
-    public List<State> list() {
-        return this.stateRepository.list();
+    public List<State> findAll() {
+        return this.stateRepository.findAll();
     }
 
     public State findById(Long id) {
-
-        State state = this.stateRepository.findById(id);
-
-        if (Objects.isNull(state)) {
-            throw new EntityNotFoundException(String.format("Não existe Estado cadastrado com o código %d", id));
-        }
-
-        return state;
+        return this.stateRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Não existe Estado cadastrado com o código %d", id)));
     }
 
     public State save(State state) {
@@ -44,9 +37,9 @@ public class StateService {
         return this.save(oldState);
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         try {
-            stateRepository.delete(id);
+            stateRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException(String.format("Não existe um cadastro de estado com código %d", id));
         } catch (DataIntegrityViolationException e) {
